@@ -1,6 +1,7 @@
 package com.cityexplore.ciplore.web;
 
 import com.cityexplore.ciplore.domain.Property;
+import com.cityexplore.ciplore.services.MapValidationErrorService;
 import com.cityexplore.ciplore.services.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,18 +22,17 @@ import java.util.Map;
 public class PropertyController {
 
     @Autowired
-    PropertyService propertyService;
+    private PropertyService propertyService;
+
+    @Autowired
+    private MapValidationErrorService mapValidationErrorService;
 
     @PostMapping("")
     public ResponseEntity<?> createNewProperty(@Valid @RequestBody Property property, BindingResult result) {
 
-        if(result.hasErrors()){
-            Map<String, String > errorMap = new HashMap<>();
-            for(FieldError error: result.getFieldErrors()) {
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-            return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
-        }
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if(errorMap != null) return errorMap;
+
         Property property1 = propertyService.saveOrUpdateProperty(property);
         return new ResponseEntity<Property>(property1, HttpStatus.CREATED);
     }
