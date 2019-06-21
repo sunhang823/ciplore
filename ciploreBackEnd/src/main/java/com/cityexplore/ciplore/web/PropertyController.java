@@ -40,4 +40,10 @@ public class PropertyController {
 
         return new ResponseEntity<Property>(property, HttpStatus.OK);
     }
+
+    @GetMapping("/all")
+    public Iterable<Property> getAllProperties() {
+        return propertyService.findAllProperties();
+    }
+
 }

@@ -30,4 +30,8 @@ public class PropertyService {
 
         return property;
     }
+
+    public Iterable<Property> findAllProperties(){
+        return propertyRepository.findAll();
+    }
 }
