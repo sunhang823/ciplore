@@ -7,7 +7,7 @@ class PropertyDashboard extends Component {
     return (
       <div>
         <Header />
-        <h1>Welcome to Property Dashboard</h1>
+        <h1 className="alert alert-warning">Welcome to Property Dashboard</h1>
         <PropertyItem />
       </div>
     );
