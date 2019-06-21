@@ -4,11 +4,7 @@ import PropertyDashboard from "./components/PropertyComponents/PropertyDashboard
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  return (
-    <div className="App">
-      <PropertyDashboard />
-    </div>
-  );
+  return <div className="App" />;
 }
 
 export default App;
