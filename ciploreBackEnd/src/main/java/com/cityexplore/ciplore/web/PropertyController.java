@@ -46,4 +46,10 @@ public class PropertyController {
         return propertyService.findAllProperties();
     }
 
+    @DeleteMapping("/{propertyIdentifier}")
+    public ResponseEntity<?> deleteProperty(@PathVariable String propertyIdentifier) {
+        propertyService.deletePropertyByIdentifier(propertyIdentifier);
+        return new ResponseEntity<String>("Property with ID :" + propertyIdentifier + " was deleted", HttpStatus.OK);
+    }
+
 }

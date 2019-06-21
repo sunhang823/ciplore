@@ -34,4 +34,14 @@ public class PropertyService {
     public Iterable<Property> findAllProperties(){
         return propertyRepository.findAll();
     }
+
+    public void deletePropertyByIdentifier(String propertyIdentifier) {
+        Property property = propertyRepository.findByPropertyIdentifier(propertyIdentifier.toUpperCase());
+
+        if(property == null) {
+            throw new IdentifierException("Cannot delete property with Id " + propertyIdentifier + ". This property does not exist.");
+        }
+
+        propertyRepository.delete(property);
+    }
 }
