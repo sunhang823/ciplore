@@ -8,10 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -35,5 +32,12 @@ public class PropertyController {
 
         Property property1 = propertyService.saveOrUpdateProperty(property);
         return new ResponseEntity<Property>(property1, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{propertyIdentifier}")
+    public ResponseEntity<?> getPropertyByIdentifier(@PathVariable String propertyIdentifier){
+        Property property = propertyService.findByPropertyIdentifier(propertyIdentifier);
+
+        return new ResponseEntity<Property>(property, HttpStatus.OK);
     }
 }

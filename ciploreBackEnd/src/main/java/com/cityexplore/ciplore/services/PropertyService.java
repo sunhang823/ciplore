@@ -20,4 +20,14 @@ public class PropertyService {
             throw new IdentifierException("Property ID '" + property.getPropertyIdentifier().toUpperCase() + "' already exists");
         }
     }
+
+    public Property findByPropertyIdentifier(String propertiIdentifier) {
+        Property property = propertyRepository.findByPropertyIdentifier(propertiIdentifier.toUpperCase());
+
+        if(property == null) {
+            throw new IdentifierException("Property Id '" + propertiIdentifier + "' does not exist");
+        }
+
+        return property;
+    }
 }

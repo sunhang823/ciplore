@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PropertyRepository extends CrudRepository<Property, Long> {
-    @Override
-    Iterable<Property> findAllById(Iterable<Long> iterable);
+
+    Property findByPropertyIdentifier(String propertyIdentifier);
+
 }
