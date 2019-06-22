@@ -9,9 +9,7 @@ class Header extends Component {
           <a class="navbar-brand mr-auto" href="#">
             <img src={logo} alt="Logo" />
           </a>
-          <a className="navbar-brand" href="Dashboard.html">
-            Ciplore
-          </a>
+
           <button
             className="navbar-toggler"
             type="button"
