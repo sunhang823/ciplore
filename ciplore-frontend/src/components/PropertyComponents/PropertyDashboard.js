@@ -1,14 +1,21 @@
 import React, { Component } from "react";
 import PropertyItem from "./Property/PropertyItem";
-import Header from "../Layout/Header";
 
 class PropertyDashboard extends Component {
   render() {
     return (
       <div>
-        <Header />
-        <h1 className="alert alert-warning">Welcome to Property Dashboard</h1>
-        <PropertyItem />
+        <div className="projects">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12">
+                <h1 className="display-4 text-center">Apartments</h1>
+                <hr />
+                <PropertyItem />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
