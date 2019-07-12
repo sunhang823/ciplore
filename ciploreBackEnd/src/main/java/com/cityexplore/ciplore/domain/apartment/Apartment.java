@@ -49,6 +49,7 @@ public class Apartment extends BaseEntity {
     public Apartment() {
     }
 
+
     public String getApartmentName() {
         return apartmentName;
     }
