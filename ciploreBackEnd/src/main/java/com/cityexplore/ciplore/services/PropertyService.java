@@ -11,35 +11,37 @@ public class PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
 
-    public Property saveOrUpdateProperty(Property property) {
+    public Property saveProperty(Property property) {
 
-        try {
-            property.setPropertyIdentifier(property.getPropertyIdentifier().toUpperCase());
-            return propertyRepository.save(property);
-        } catch (Exception ex) {
-            throw new IdentifierException("Property ID '" + property.getPropertyIdentifier().toUpperCase() + "' already exists");
-        }
+        return propertyRepository.save(property);
+
     }
 
-    public Property findByPropertyIdentifier(String propertiIdentifier) {
-        Property property = propertyRepository.findByPropertyIdentifier(propertiIdentifier.toUpperCase());
+    public Property findByPropertyId(Long id) {
+        Property property = propertyRepository.findById(id).orElse(null);
 
         if(property == null) {
-            throw new IdentifierException("Property Id '" + propertiIdentifier + "' does not exist");
+            throw new IdentifierException("Property Id '" + id + "' does not exist");
         }
 
         return property;
+    }
+
+    public Property updateProperty(Property updatedProperty){
+        System.out.println(updatedProperty.getId());
+        findByPropertyId(updatedProperty.getId());
+        return saveProperty(updatedProperty);
     }
 
     public Iterable<Property> findAllProperties(){
         return propertyRepository.findAll();
     }
 
-    public void deletePropertyByIdentifier(String propertyIdentifier) {
-        Property property = propertyRepository.findByPropertyIdentifier(propertyIdentifier.toUpperCase());
+    public void deletePropertyById(Long id) {
+        Property property = propertyRepository.findById(id).orElse(null);
 
         if(property == null) {
-            throw new IdentifierException("Cannot delete property with Id " + propertyIdentifier + ". This property does not exist.");
+            throw new IdentifierException("Cannot delete property with Id " + id + ". This property does not exist.");
         }
 
         propertyRepository.delete(property);

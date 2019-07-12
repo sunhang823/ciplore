@@ -7,12 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/property")
@@ -30,13 +27,25 @@ public class PropertyController {
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if(errorMap != null) return errorMap;
 
-        Property property1 = propertyService.saveOrUpdateProperty(property);
+        Property property1 = propertyService.saveProperty(property);
         return new ResponseEntity<Property>(property1, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{propertyIdentifier}")
-    public ResponseEntity<?> getPropertyByIdentifier(@PathVariable String propertyIdentifier){
-        Property property = propertyService.findByPropertyIdentifier(propertyIdentifier);
+
+    @PatchMapping("update")
+    public ResponseEntity<?> updateProperty(@Valid @RequestBody Property property, BindingResult result) {
+
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if(errorMap != null) return errorMap;
+
+        Property property1 = propertyService.updateProperty(property);
+        return new ResponseEntity<Property>(property1, HttpStatus.CREATED);
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getPropertyByIdentifier(@PathVariable Long id){
+        Property property = propertyService.findByPropertyId(id);
 
         return new ResponseEntity<Property>(property, HttpStatus.OK);
     }
@@ -46,10 +55,10 @@ public class PropertyController {
         return propertyService.findAllProperties();
     }
 
-    @DeleteMapping("/{propertyIdentifier}")
-    public ResponseEntity<?> deleteProperty(@PathVariable String propertyIdentifier) {
-        propertyService.deletePropertyByIdentifier(propertyIdentifier);
-        return new ResponseEntity<String>("Property with ID :" + propertyIdentifier + " was deleted", HttpStatus.OK);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProperty(@PathVariable Long id) {
+        propertyService.deletePropertyById(id);
+        return new ResponseEntity<String>("Property with ID :" + id + " was deleted", HttpStatus.OK);
     }
 
 }

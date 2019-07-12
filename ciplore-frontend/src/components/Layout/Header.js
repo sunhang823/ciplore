@@ -6,7 +6,7 @@ class Header extends Component {
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
         <div className="container">
-          <a class="navbar-brand mr-auto" href="#">
+          <a className="navbar-brand mr-auto" href="#">
             <img src={logo} alt="Logo" />
           </a>
 

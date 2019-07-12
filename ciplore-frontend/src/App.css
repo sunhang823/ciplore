@@ -5,6 +5,40 @@ img {
 .navbar {
   background-color: #e3f2fd;
 }
+
+.footer {
+  background-color: #e3f2fd;
+  color: #e3f2fd;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+}
+
+.login {
+  min-height: 100vh;
+}
+.register {
+  min-height: 100vh;
+}
+.projects {
+  min-height: 100vh;
+}
+.project {
+  min-height: 100vh;
+}
+
+.add-PBI {
+  min-height: 100vh;
+}
+
+.projectBoard {
+  min-height: 100vh;
+}
+.link {
+  color: #e3f2fd;
+}
+
 .fa.fa-edit {
   color: #18a2b9;
 }
