@@ -53,4 +53,11 @@ public class ApartmentBacklogController {
         return new ResponseEntity<Room>(room, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{apartmentName}/{roomId}")
+    public ResponseEntity<?> deleteRoom(@PathVariable String apartmentName, @PathVariable String roomId) {
+        roomService.deleteRoomByRoomNumber(apartmentName, roomId);
+
+        return new ResponseEntity<String>("Room '" + roomId + "' was deleted successfully", HttpStatus.OK);
+    }
+
 }
