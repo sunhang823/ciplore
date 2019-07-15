@@ -30,7 +30,7 @@ public class RoomService {
 
         String apartmentNameId = apartmentName.replaceAll("\\s+","").toUpperCase();
 
-        room.setRoomId(apartmentNameId + "-" + room.getRoomNumber().toString());
+        room.setRoomId(apartmentNameId + "-" + room.getRoomNumber());
         room.setApartmentNameId(apartmentNameId);
 
         return roomRepository.save(room);
@@ -46,7 +46,7 @@ public class RoomService {
 
     public Room findRoomByRoomId(String apartmentName, String roomId) {
         apartmentService.findApartmentByApartmentName(apartmentName);
-        Room room = roomRepository.findByRoomId(roomId);
+        Room room = roomRepository.findByRoomId(roomId.toUpperCase());
 
         if(room == null) {
             throw new NotFoundException("Room Id '" + roomId + "' does not exist in Apartment: " + apartmentName);

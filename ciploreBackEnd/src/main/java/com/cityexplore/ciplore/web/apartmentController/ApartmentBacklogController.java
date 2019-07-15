@@ -35,4 +35,12 @@ public class ApartmentBacklogController {
 
         return roomService.findApartmentBacklogByApartmentName(apartmentName);
     }
+
+    @GetMapping("/{apartmentName}/{roomId}")
+    public ResponseEntity<?> getRoom(@PathVariable String apartmentName, @PathVariable String roomId) {
+        Room room = roomService.findRoomByRoomId(apartmentName, roomId);
+        return new ResponseEntity<Room>(room, HttpStatus.OK);
+    }
+
+
 }

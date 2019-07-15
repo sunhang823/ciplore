@@ -12,7 +12,7 @@ import java.util.Date;
 public class Room extends BaseEntity {
 
     @NotNull(message = "Room number is required")
-    private Integer roomNumber;
+    private String roomNumber;
 
     private String roomId;
 
@@ -32,11 +32,11 @@ public class Room extends BaseEntity {
     public Room() {
     }
 
-    public Integer getRoomNumber() {
+    public String getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(Integer roomNumber) {
+    public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }
 
