@@ -1,6 +1,7 @@
 package com.cityexplore.ciplore.domain.apartment;
 
 import com.cityexplore.ciplore.domain.BaseEntity;
+import com.cityexplore.ciplore.domain.LocationEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -11,28 +12,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Apartment extends BaseEntity {
+public class Apartment extends LocationEntity {
 
     @NotBlank(message = "Apartment name is required")
+    @Column(unique = true)
     private String apartmentName;
+
+    private String apartmentNameId;
 
     @NotBlank(message = "Apartment Info is required")
     private String apartmentInfo;
 
-    @NotBlank(message = "Apartment address is required")
-    private String apartmentAddress;
-
-    @NotBlank(message = "Apartment city is required")
-    private String apartmentCity;
-
-    @NotBlank(message = "Apartment state is required")
-    private String apartmentState;
-
-    @NotBlank(message = "Apartment country is required")
-    private String apartmentCountry;
-
-    @NotNull(message = "Apartment zipCode is required")
-    private Integer apartmentZipCode;
+//    private String apartmentAddress;
+//
+//    private String apartmentCity;
+//
+//    private String apartmentState;
+//
+//    private String apartmentCountry;
+//
+//    private Integer apartmentZipCode;
 
     //url
 
@@ -43,11 +42,11 @@ public class Apartment extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "apartment")
     private Set<Room> rooms = new HashSet<>();
 
-    @JsonFormat(pattern = "yyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     @Column(updatable = false)
     private Date created_At;
 
-    @JsonFormat(pattern = "yyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date updated_At;
 
 
@@ -61,6 +60,15 @@ public class Apartment extends BaseEntity {
 
     public void setApartmentName(String apartmentName) {
         this.apartmentName = apartmentName;
+        this.apartmentNameId = apartmentName.replaceAll("\\s+","").toUpperCase();
+    }
+
+    public String getApartmentNameId() {
+        return apartmentNameId;
+    }
+
+    public void setApartmentNameId(String apartmentNameId) {
+        this.apartmentNameId = apartmentNameId;
     }
 
     public String getApartmentInfo() {
@@ -71,45 +79,45 @@ public class Apartment extends BaseEntity {
         this.apartmentInfo = apartmentInfo;
     }
 
-    public String getApartmentAddress() {
-        return apartmentAddress;
-    }
-
-    public void setApartmentAddress(String apartmentAddress) {
-        this.apartmentAddress = apartmentAddress;
-    }
-
-    public String getApartmentCity() {
-        return apartmentCity;
-    }
-
-    public void setApartmentCity(String apartmentCity) {
-        this.apartmentCity = apartmentCity;
-    }
-
-    public String getApartmentState() {
-        return apartmentState;
-    }
-
-    public void setApartmentState(String apartmentState) {
-        this.apartmentState = apartmentState;
-    }
-
-    public String getApartmentCountry() {
-        return apartmentCountry;
-    }
-
-    public void setApartmentCountry(String apartmentCountry) {
-        this.apartmentCountry = apartmentCountry;
-    }
-
-    public Integer getApartmentZipCode() {
-        return apartmentZipCode;
-    }
-
-    public void setApartmentZipCode(Integer apartmentZipCode) {
-        this.apartmentZipCode = apartmentZipCode;
-    }
+//    public String getApartmentAddress() {
+//        return apartmentAddress;
+//    }
+//
+//    public void setApartmentAddress(String apartmentAddress) {
+//        this.apartmentAddress = apartmentAddress;
+//    }
+//
+//    public String getApartmentCity() {
+//        return apartmentCity;
+//    }
+//
+//    public void setApartmentCity(String apartmentCity) {
+//        this.apartmentCity = apartmentCity;
+//    }
+//
+//    public String getApartmentState() {
+//        return apartmentState;
+//    }
+//
+//    public void setApartmentState(String apartmentState) {
+//        this.apartmentState = apartmentState;
+//    }
+//
+//    public String getApartmentCountry() {
+//        return apartmentCountry;
+//    }
+//
+//    public void setApartmentCountry(String apartmentCountry) {
+//        this.apartmentCountry = apartmentCountry;
+//    }
+//
+//    public Integer getApartmentZipCode() {
+//        return apartmentZipCode;
+//    }
+//
+//    public void setApartmentZipCode(Integer apartmentZipCode) {
+//        this.apartmentZipCode = apartmentZipCode;
+//    }
 
     public Byte[] getImage() {
         return image;

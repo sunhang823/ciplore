@@ -13,9 +13,11 @@ public class ApartmentService {
     private ApartmentRepository apartmentRepository;
 
     public Apartment saveApartment(Apartment apartment) {
-
-        return apartmentRepository.save(apartment);
-
+        try{
+            return apartmentRepository.save(apartment);
+        } catch (Exception e) {
+            throw new IdentifierException("Apartment name '" + apartment.getApartmentName() + "' already exists");
+        }
     }
 
     public Apartment findApartmentById(Long id) {
@@ -23,6 +25,19 @@ public class ApartmentService {
 
         if(apartment == null) {
             throw new IdentifierException("Apartment Id '" + id + "' does not exist");
+        }
+
+        return apartment;
+    }
+
+    public Apartment findApartmentByApartmentName(String apartmentName) {
+
+        String apartmentNameId = apartmentName.replaceAll("\\s+","").toUpperCase();
+
+        Apartment apartment = apartmentRepository.findByApartmentNameId(apartmentNameId);
+
+        if(apartment == null) {
+            throw new IdentifierException("Apartment name '" + apartmentName + "' does not exist");
         }
 
         return apartment;
@@ -38,12 +53,7 @@ public class ApartmentService {
     }
 
     public void deleteApartmentById(Long id) {
-        Apartment apartment = apartmentRepository.findById(id).orElse(null);
-
-        if(apartment == null) {
-            throw new IdentifierException("Cannot delete apartment with Id " + id + ". This property does not exist.");
-        }
-
+        Apartment apartment = findApartmentById(id);
         apartmentRepository.delete(apartment);
     }
 }

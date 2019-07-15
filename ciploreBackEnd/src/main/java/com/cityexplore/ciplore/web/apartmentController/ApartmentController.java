@@ -1,4 +1,4 @@
-package com.cityexplore.ciplore.web;
+package com.cityexplore.ciplore.web.apartmentController;
 
 import com.cityexplore.ciplore.domain.apartment.Apartment;
 import com.cityexplore.ciplore.services.apartmentService.ApartmentService;
@@ -42,9 +42,16 @@ public class ApartmentController {
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<?> getApartmentById(@PathVariable Long id){
         Apartment apartment= apartmentService.findApartmentById(id);
+
+        return new ResponseEntity<Apartment>(apartment, HttpStatus.OK);
+    }
+
+    @GetMapping("/name/{apartmentName}")
+    public ResponseEntity<?> getApartmentByApartmentName(@PathVariable String apartmentName) {
+        Apartment apartment = apartmentService.findApartmentByApartmentName(apartmentName);
 
         return new ResponseEntity<Apartment>(apartment, HttpStatus.OK);
     }
@@ -54,8 +61,8 @@ public class ApartmentController {
         return apartmentService.findAllApartments();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteApartment(@PathVariable Long id) {
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<?> deleteApartmentById(@PathVariable Long id) {
         apartmentService.deleteApartmentById(id);
         return new ResponseEntity<String>("Apartment with ID :" + id + " was deleted", HttpStatus.OK);
     }
