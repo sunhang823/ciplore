@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/room")
-public class RoomController {
+@RequestMapping("/api/apartmentbacklog")
+public class ApartmentBacklogController {
     @Autowired
     private RoomService roomService;
 
@@ -30,10 +30,9 @@ public class RoomController {
         return new ResponseEntity<Room>(room1, HttpStatus.CREATED);
     }
 
-//    @GetMapping("/id/{id}")
-//    public ResponseEntity<?> getRoomById(@PathVariable Long id){
-//        Room room = roomService.findRoomById(id);
-//
-//        return new ResponseEntity<Room>(room, HttpStatus.OK);
-//    }
+    @GetMapping("/{apartmentName}")
+    public Iterable<Room> getApartmentBacklog(@PathVariable String apartmentName) {
+
+        return roomService.findApartmentBacklogByApartmentName(apartmentName);
+    }
 }

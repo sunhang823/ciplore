@@ -31,11 +31,13 @@ public class RoomService {
         String apartmentNameId = apartmentName.replaceAll("\\s+","").toUpperCase();
 
         room.setRoomId(apartmentNameId + "-" + room.getRoomNumber().toString());
+        room.setApartmentNameId(apartmentNameId);
 
         return roomRepository.save(room);
     }
 
     public Iterable<Room> findApartmentBacklogByApartmentName(String apartmentName) {
+        System.out.println(apartmentName);
         apartmentService.findApartmentByApartmentName(apartmentName);
 
         String apartmentNameId = apartmentName.replaceAll("\\s+","").toUpperCase();
