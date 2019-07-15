@@ -4,10 +4,13 @@ import com.cityexplore.ciplore.domain.apartment.Room;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface RoomRepository extends CrudRepository<Room, Long> {
 
-    Room findByRoomNumber(Integer roomNumber);
+    List<Room> findByApartmentNameId(String apartmentNameId);
 
-    void deleteByRoomNumber(Integer roomNumber);
+    Room findByRoomId(String roomId);
+
 }

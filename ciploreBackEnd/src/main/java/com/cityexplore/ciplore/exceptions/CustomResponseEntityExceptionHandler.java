@@ -17,4 +17,10 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
         IdentifierExceprionResponse identifierExceprionResponse = new IdentifierExceprionResponse(ex.getMessage());
         return new ResponseEntity<>(identifierExceprionResponse, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleNotFoundExpection(NotFoundException ex, WebRequest request) {
+        NotFoundExceptionResponse notFoundExceptionResponse = new NotFoundExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(notFoundExceptionResponse, HttpStatus.BAD_REQUEST);
+    }
 }

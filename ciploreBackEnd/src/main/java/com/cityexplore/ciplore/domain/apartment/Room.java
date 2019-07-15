@@ -1,10 +1,9 @@
 package com.cityexplore.ciplore.domain.apartment;
 
 import com.cityexplore.ciplore.domain.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -15,18 +14,20 @@ public class Room extends BaseEntity {
     @NotNull(message = "Room number is required")
     private Integer roomNumber;
 
-    @NotBlank(message = "Room Type is Required")
-    @ManyToOne
-    @JoinColumn(name = "type_id")
-    private RoomType roomType;
+    private String roomId;
+
+    private String roomType;
 
     private Integer price;
 
     private Date availableDate;
 
-    @ManyToOne
-    @JoinColumn(name = "apartment_id")
-    private Apartment apartment;
+    private String apartmentNameId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "apartmentBacklog_id", updatable = false, nullable = false)
+    @JsonIgnore
+    private ApartmentBacklog apartmentBacklog;
 
     public Room() {
     }
@@ -39,12 +40,21 @@ public class Room extends BaseEntity {
         this.roomNumber = roomNumber;
     }
 
-    public RoomType getRoomType() {
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
+
+    public String getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(RoomType roomType) {
-        this.roomType = roomType;
+    public void setRoomType(String roomType) {
+
+        this.roomType = roomType.toUpperCase();
     }
 
     public Integer getPrice() {
@@ -63,11 +73,19 @@ public class Room extends BaseEntity {
         this.availableDate = availableDate;
     }
 
-    public Apartment getApartment() {
-        return apartment;
+    public String getApartmentNameId() {
+        return apartmentNameId;
     }
 
-    public void setApartment(Apartment apartment) {
-        this.apartment = apartment;
+    public void setApartmentNameId(String apartmentNameId) {
+        this.apartmentNameId = apartmentNameId;
+    }
+
+    public ApartmentBacklog getApartmentBacklog() {
+        return apartmentBacklog;
+    }
+
+    public void setApartmentBacklog(ApartmentBacklog apartmentBacklog) {
+        this.apartmentBacklog = apartmentBacklog;
     }
 }

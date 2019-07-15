@@ -2,7 +2,9 @@ package com.cityexplore.ciplore.services.apartmentService;
 
 
 import com.cityexplore.ciplore.domain.apartment.Apartment;
+import com.cityexplore.ciplore.domain.apartment.ApartmentBacklog;
 import com.cityexplore.ciplore.exceptions.IdentifierException;
+import com.cityexplore.ciplore.repositories.apartmentRepository.ApartmentBacklogRepository;
 import com.cityexplore.ciplore.repositories.apartmentRepository.ApartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +14,15 @@ public class ApartmentService {
     @Autowired
     private ApartmentRepository apartmentRepository;
 
+    @Autowired
+    private ApartmentBacklogRepository apartmentBacklogRepository;
+
     public Apartment saveApartment(Apartment apartment) {
         try{
+            ApartmentBacklog apartmentBacklog = new ApartmentBacklog();
+            apartment.setApartmentBacklog(apartmentBacklog);
+            apartmentBacklog.setApartment(apartment);
+            apartmentBacklog.setApartmentNameId(apartment.getApartmentNameId());
             return apartmentRepository.save(apartment);
         } catch (Exception e) {
             throw new IdentifierException("Apartment name '" + apartment.getApartmentName() + "' already exists");
@@ -44,6 +53,8 @@ public class ApartmentService {
     }
 
     public Apartment updateApartment(Apartment updatedApartment){
+
+        updatedApartment.setApartmentBacklog(apartmentBacklogRepository.findByApartmentNameId(updatedApartment.getApartmentNameId()));
         findApartmentById(updatedApartment.getId());
         return saveApartment(updatedApartment);
     }

@@ -1,15 +1,12 @@
 package com.cityexplore.ciplore.domain.apartment;
 
-import com.cityexplore.ciplore.domain.BaseEntity;
 import com.cityexplore.ciplore.domain.LocationEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Apartment extends LocationEntity {
@@ -23,24 +20,9 @@ public class Apartment extends LocationEntity {
     @NotBlank(message = "Apartment Info is required")
     private String apartmentInfo;
 
-//    private String apartmentAddress;
-//
-//    private String apartmentCity;
-//
-//    private String apartmentState;
-//
-//    private String apartmentCountry;
-//
-//    private Integer apartmentZipCode;
-
-    //url
-
-    //image
-    @Lob
-    private Byte[] image;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "apartment")
-    private Set<Room> rooms = new HashSet<>();
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "apartment")
+    @JsonIgnore
+    private ApartmentBacklog apartmentBacklog;
 
     @JsonFormat(pattern = "yyyy-mm-dd")
     @Column(updatable = false)
@@ -79,54 +61,6 @@ public class Apartment extends LocationEntity {
         this.apartmentInfo = apartmentInfo;
     }
 
-//    public String getApartmentAddress() {
-//        return apartmentAddress;
-//    }
-//
-//    public void setApartmentAddress(String apartmentAddress) {
-//        this.apartmentAddress = apartmentAddress;
-//    }
-//
-//    public String getApartmentCity() {
-//        return apartmentCity;
-//    }
-//
-//    public void setApartmentCity(String apartmentCity) {
-//        this.apartmentCity = apartmentCity;
-//    }
-//
-//    public String getApartmentState() {
-//        return apartmentState;
-//    }
-//
-//    public void setApartmentState(String apartmentState) {
-//        this.apartmentState = apartmentState;
-//    }
-//
-//    public String getApartmentCountry() {
-//        return apartmentCountry;
-//    }
-//
-//    public void setApartmentCountry(String apartmentCountry) {
-//        this.apartmentCountry = apartmentCountry;
-//    }
-//
-//    public Integer getApartmentZipCode() {
-//        return apartmentZipCode;
-//    }
-//
-//    public void setApartmentZipCode(Integer apartmentZipCode) {
-//        this.apartmentZipCode = apartmentZipCode;
-//    }
-
-    public Byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(Byte[] image) {
-        this.image = image;
-    }
-
     public Date getCreated_At() {
         return created_At;
     }
@@ -143,12 +77,13 @@ public class Apartment extends LocationEntity {
         this.updated_At = updated_At;
     }
 
-    public Set<Room> getRooms() {
-        return rooms;
+
+    public ApartmentBacklog getApartmentBacklog() {
+        return apartmentBacklog;
     }
 
-    public void setRooms(Set<Room> rooms) {
-        this.rooms = rooms;
+    public void setApartmentBacklog(ApartmentBacklog apartmentBacklog) {
+        this.apartmentBacklog = apartmentBacklog;
     }
 
     @PrePersist
