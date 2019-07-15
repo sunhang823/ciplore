@@ -42,5 +42,15 @@ public class ApartmentBacklogController {
         return new ResponseEntity<Room>(room, HttpStatus.OK);
     }
 
+    @PatchMapping("/{apartmentName}/{roomId}")
+    public ResponseEntity<?> updateRoom(@Valid @RequestBody Room updatedRoom, BindingResult result, @PathVariable String apartmentName, @PathVariable String roomId) {
+
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if(errorMap != null) return errorMap;
+
+        Room room = roomService.updateByRoomNumber(apartmentName, roomId, updatedRoom);
+
+        return new ResponseEntity<Room>(room, HttpStatus.OK);
+    }
 
 }

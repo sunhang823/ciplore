@@ -2,6 +2,7 @@ package com.cityexplore.ciplore.services.apartmentService;
 
 import com.cityexplore.ciplore.domain.apartment.ApartmentBacklog;
 import com.cityexplore.ciplore.domain.apartment.Room;
+import com.cityexplore.ciplore.exceptions.IdentifierException;
 import com.cityexplore.ciplore.exceptions.NotFoundException;
 import com.cityexplore.ciplore.repositories.apartmentRepository.ApartmentBacklogRepository;
 import com.cityexplore.ciplore.repositories.apartmentRepository.ApartmentRepository;
@@ -24,20 +25,23 @@ public class RoomService {
     private ApartmentService apartmentService;
 
     public Room saveRoom(String apartmentName, Room room) {
-        ApartmentBacklog apartmentBacklog = apartmentService.findApartmentByApartmentName(apartmentName).getApartmentBacklog();
+        try {
+            ApartmentBacklog apartmentBacklog = apartmentService.findApartmentByApartmentName(apartmentName).getApartmentBacklog();
 
-        room.setApartmentBacklog(apartmentBacklog);
+            room.setApartmentBacklog(apartmentBacklog);
 
-        String apartmentNameId = apartmentName.replaceAll("\\s+","").toUpperCase();
+            String apartmentNameId = apartmentName.replaceAll("\\s+", "").toUpperCase();
 
-        room.setRoomId(apartmentNameId + "-" + room.getRoomNumber());
-        room.setApartmentNameId(apartmentNameId);
+            room.setRoomId(apartmentNameId + "-" + room.getRoomNumber());
+            room.setApartmentNameId(apartmentNameId);
 
-        return roomRepository.save(room);
+            return roomRepository.save(room);
+        } catch (Exception e) {
+            throw new IdentifierException("Apartment '" + apartmentName + "' already has room " + room.getRoomNumber());
+        }
     }
 
     public Iterable<Room> findApartmentBacklogByApartmentName(String apartmentName) {
-        System.out.println(apartmentName);
         apartmentService.findApartmentByApartmentName(apartmentName);
 
         String apartmentNameId = apartmentName.replaceAll("\\s+","").toUpperCase();

@@ -4,7 +4,6 @@ import com.cityexplore.ciplore.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -14,6 +13,7 @@ public class Room extends BaseEntity {
     @NotNull(message = "Room number is required")
     private String roomNumber;
 
+    @Column(unique = true)
     private String roomId;
 
     private String roomType;
