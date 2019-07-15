@@ -1,9 +1,11 @@
 package com.cityexplore.ciplore.domain.apartment;
 
+import com.cityexplore.ciplore.domain.BaseEntity;
+
 import javax.persistence.Entity;
 
 @Entity
-public class RoomType {
+public class RoomType extends BaseEntity {
 
     private String RoomTypeName;
 
@@ -12,12 +14,6 @@ public class RoomType {
     private Integer numOfBathroom;
 
     public RoomType() {
-    }
-
-    public RoomType(String roomTypeName, Integer numOfBedroom, Integer numOfBathroom) {
-        RoomTypeName = roomTypeName;
-        this.numOfBedroom = numOfBedroom;
-        this.numOfBathroom = numOfBathroom;
     }
 
     public String getRoomTypeName() {

@@ -1,7 +1,7 @@
 package com.cityexplore.ciplore.web;
 
 import com.cityexplore.ciplore.domain.apartment.Apartment;
-import com.cityexplore.ciplore.services.ApartmentService;
+import com.cityexplore.ciplore.services.apartmentService.ApartmentService;
 import com.cityexplore.ciplore.services.MapValidationErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

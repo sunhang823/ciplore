@@ -1,9 +1,9 @@
-package com.cityexplore.ciplore.services;
+package com.cityexplore.ciplore.services.apartmentService;
 
 
 import com.cityexplore.ciplore.domain.apartment.Apartment;
 import com.cityexplore.ciplore.exceptions.IdentifierException;
-import com.cityexplore.ciplore.repositories.ApartmentRepository;
+import com.cityexplore.ciplore.repositories.apartmentRepository.ApartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

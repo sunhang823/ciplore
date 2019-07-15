@@ -7,6 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Apartment extends BaseEntity {
@@ -37,6 +39,9 @@ public class Apartment extends BaseEntity {
     //image
     @Lob
     private Byte[] image;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "apartment")
+    private Set<Room> rooms = new HashSet<>();
 
     @JsonFormat(pattern = "yyy-mm-dd")
     @Column(updatable = false)
@@ -128,6 +133,14 @@ public class Apartment extends BaseEntity {
 
     public void setUpdated_At(Date updated_At) {
         this.updated_At = updated_At;
+    }
+
+    public Set<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Set<Room> rooms) {
+        this.rooms = rooms;
     }
 
     @PrePersist
