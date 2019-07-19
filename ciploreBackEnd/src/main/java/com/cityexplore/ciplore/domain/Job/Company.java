@@ -1,38 +1,35 @@
 package com.cityexplore.ciplore.domain.Job;
 
-import com.cityexplore.ciplore.domain.BaseEntity;
 import com.cityexplore.ciplore.domain.LocationEntity;
-import com.cityexplore.ciplore.domain.apartment.ApartmentBacklog;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Job extends BaseEntity {
+public class Company extends LocationEntity {
 
-    private String title;
+    private String companyName;
 
     private String description;
 
-    private String jobId;
+    private String companyNameId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "companyBacklog_id", updatable = false, nullable = false)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "company")
     @JsonIgnore
     private CompanyBacklog companyBacklog;
 
-    public Job() {
+    public Company() {
     }
 
-    public String getTitle() {
-        return title;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getDescription() {
@@ -43,12 +40,12 @@ public class Job extends BaseEntity {
         this.description = description;
     }
 
-    public String getJobId() {
-        return jobId;
+    public String getCompanyNameId() {
+        return companyNameId;
     }
 
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
+    public void setCompanyNameId(String companyNameId) {
+        this.companyNameId = companyNameId;
     }
 
     public CompanyBacklog getCompanyBacklog() {
